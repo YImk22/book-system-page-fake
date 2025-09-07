@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sales Data - Book Contract Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
+            min-height: 100vh;
+        }
+        .navbar {
+            background: #2563eb;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .navbar-brand, .nav-link, .navbar .btn {
+            color: #fff !important;
+        }
+        .nav-link.active {
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }
+        .main-section {
+            max-width: 1400px;
+            margin: 40px auto 0 auto;
+            padding: 0 16px;
+        }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 18px;
+        }
+        .stats-row {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+        .stat-card {
+            flex: 1;
+            min-width: 200px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            padding: 20px;
+            text-align: center;
+            border-left: 4px solid #2563eb;
+        }
+        .stat-icon {
+            font-size: 1.5rem;
+            color: #2563eb;
+            margin-bottom: 8px;
+        }
+        .stat-value {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #222;
+        }
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 4px;
+        }
+        .filter-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .view-toggle {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+        .view-toggle .btn {
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.9rem;
+        }
+        .chart-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .table-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .table thead th {
+            background: #f3f6fd;
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .table tbody td {
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+        .desc-box {
+            background: #f3f6fd;
+            border-radius: 10px;
+            padding: 16px 20px;
+            color: #555;
+            margin-bottom: 24px;
+            border-left: 4px solid #2563eb;
+        }
+        .footer {
+            color: #888;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-top: 60px;
+            padding-bottom: 20px;
+        }
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+        }
+        .filter-item label {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 4px;
+        }
+        .filter-item select, .filter-item input {
+            font-size: 0.9rem;
+        }
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+        }
+        .summary-table {
+            font-size: 0.85rem;
+        }
+        .summary-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+        @media (max-width: 900px) {
+            .stats-row { flex-direction: column; }
+            .filter-row { grid-template-columns: 1fr; }
+            .view-toggle { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+    <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+        <i class="bi bi-journal-bookmark-fill me-2" style="font-size:2rem;"></i>
+        Book Contract Management System
+    </a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="book-list.html">My Books</a></li>
+            <li class="nav-item"><a class="nav-link" href="contract-list.html">Contracts</a></li>
+            <li class="nav-item"><a class="nav-link active" href="sales-view.html">Sales Data</a></li>
+            <li class="nav-item"><a class="nav-link" href="profit-view.html">Profit Analysis</a></li>
+            <li class="nav-item"><a class="nav-link" href="author-list.html">Author Management</a></li>
+            <li class="nav-item"><a class="nav-link" href="user-list.html">User Management</a></li>
+            <li class="nav-item"><a class="nav-link" href="personal-info.html">Profile</a></li>
+        </ul>
+        <div class="d-flex align-items-center">
+            <i class="bi bi-person" style="font-size:1.3rem;"></i>
+            <i class="bi bi-gear ms-3" style="font-size:1.3rem;"></i>
+            <button class="btn btn-outline-light ms-3">Logout</button>
+        </div>
+    </div>
+</nav>
+
+<div class="main-section">
+    <div class="desc-box">
+        <b>Sales Data Module Description:</b> This module integrates sales analysis (Salgsrapport) and inventory analysis (Lager), providing unified filtering, metric panels, and trend charts for comprehensive operational data support for book agents and managers. Supports three view modes: Sales View, Inventory View, and Comprehensive View.
+    </div>
+
+    <!-- View Toggle -->
+    <div class="view-toggle">
+        <button class="btn btn-primary" onclick="switchView('sales')">
+            <i class="bi bi-graph-up"></i> Sales View
+        </button>
+        <button class="btn btn-outline-primary" onclick="switchView('inventory')">
+            <i class="bi bi-box-seam"></i> Inventory View
+        </button>
+        <button class="btn btn-outline-primary" onclick="switchView('comprehensive')">
+            <i class="bi bi-layers"></i> Comprehensive View
+        </button>
+    </div>
+
+    <!-- Multi-dimensional Filtering -->
+    <div class="filter-section">
+        <h6 class="mb-3"><i class="bi bi-funnel"></i> Filter Conditions</h6>
+        <div class="filter-row">
+            <div class="filter-item">
+                <label>Sales Year (År)</label>
+                <select class="form-select form-select-sm">
+                    <option>2025</option>
+                    <option>2024</option>
+                    <option>2023</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>Sales Month (Måned)</label>
+                <select class="form-select form-select-sm">
+                    <option>August</option>
+                    <option>July</option>
+                    <option>June</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>Inventory Year (År for lager)</label>
+                <select class="form-select form-select-sm">
+                    <option>2025</option>
+                    <option>2024</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>Publication Year (Utgivelsesår)</label>
+                <select class="form-select form-select-sm">
+                    <option>2003-2025</option>
+                    <option>2020-2025</option>
+                    <option>2015-2025</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>Owner (Vareeier)</label>
+                <select class="form-select form-select-sm">
+                    <option>Pantagruel Forlag AS</option>
+                    <option>Nor Agency AS</option>
+                    <option>Akademika Skaffebok</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>Book Category (Bokgruppe 1)</label>
+                <select class="form-select form-select-sm">
+                    <option>B</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>8</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>Department (Avdeling)</label>
+                <select class="form-select form-select-sm">
+                    <option>All</option>
+                    <option>Sales</option>
+                    <option>Marketing</option>
+                </select>
+            </div>
+            <div class="filter-item">
+                <label>Campaign ID (KampanjeID)</label>
+                <input type="text" class="form-control form-control-sm" placeholder="Enter campaign ID">
+            </div>
+            <div class="filter-item">
+                <label>Client (Oppdragsgiver)</label>
+                <select class="form-select form-select-sm">
+                    <option>4045 - Gnistr.net</option>
+                    <option>900904 - Pantagruel Forlag AS</option>
+                </select>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+            <div>
+                <button class="btn btn-outline-primary btn-sm me-2">
+                    <i class="bi bi-arrow-clockwise"></i> Reset Filters
+                </button>
+                <button class="btn btn-outline-success btn-sm">
+                    <i class="bi bi-file-earmark-excel"></i> Export Data
+                </button>
+            </div>
+            <div>
+                <span class="text-muted small">Data Updated: 2025-08-15 14:30</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Statistics -->
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-graph-up"></i></div>
+            <div class="stat-value">15,240</div>
+            <div class="stat-label">Annual Delivery Total (Levert HiÅ august 2025)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-box-seam"></i></div>
+            <div class="stat-value">2,180</div>
+            <div class="stat-label">Monthly Delivery (Levert august 2025)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-receipt"></i></div>
+            <div class="stat-value">1,950</div>
+            <div class="stat-label">Monthly Invoiced (Fakturert august 2025)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-archive"></i></div>
+            <div class="stat-value">8,420</div>
+            <div class="stat-label">Monthly Inventory (Lagerbeholdning august 2025)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-tags"></i></div>
+            <div class="stat-value">156</div>
+            <div class="stat-label">SKU Count (Antall SKU)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="bi bi-currency-dollar"></i></div>
+            <div class="stat-value">NOK 45,200</div>
+            <div class="stat-label">Storage Cost (Lagerleie)</div>
+        </div>
+    </div>
+
+    <!-- Trend Charts -->
+    <div class="chart-section">
+        <h6 class="mb-3"><i class="bi bi-graph-up"></i> Sales vs Inventory Trends</h6>
+        <div class="chart-container">
+            <canvas id="salesInventoryChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Data Details -->
+    <div class="row g-4">
+        <!-- Book Dimension Details -->
+        <div class="col-lg-8">
+            <div class="table-section">
+                <h6 class="mb-3"><i class="bi bi-book"></i> Book Dimension Details</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover summary-table">
+                        <thead>
+                            <tr>
+                                <th>ISBN</th>
+                                <th>Title (Tittel)</th>
+                                <th>Author (Forfatter)</th>
+                                <th>Owner (Vareeier)</th>
+                                <th>Pub Year</th>
+                                <th>Inventory</th>
+                                <th>Delivery</th>
+                                <th>Invoiced</th>
+                                <th>Amount (NOK)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>978-82-05-12345-6</td>
+                                <td>Introduction to AI</td>
+                                <td>Wang Xiaoming</td>
+                                <td>Pantagruel Forlag AS</td>
+                                <td>2023</td>
+                                <td>450</td>
+                                <td>320</td>
+                                <td>285</td>
+                                <td>28,500</td>
+                            </tr>
+                            <tr>
+                                <td>978-82-05-12346-3</td>
+                                <td>Python Programming Practice</td>
+                                <td>Li Hua</td>
+                                <td>Nor Agency AS</td>
+                                <td>2022</td>
+                                <td>380</td>
+                                <td>280</td>
+                                <td>250</td>
+                                <td>22,500</td>
+                            </tr>
+                            <tr>
+                                <td>978-82-05-12347-0</td>
+                                <td>Blockchain Technology Principles</td>
+                                <td>Zhang Wei</td>
+                                <td>Pantagruel Forlag AS</td>
+                                <td>2021</td>
+                                <td>290</td>
+                                <td>210</td>
+                                <td>185</td>
+                                <td>18,500</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Customer Dimension Details -->
+        <div class="col-lg-4">
+            <div class="table-section">
+                <h6 class="mb-3"><i class="bi bi-people"></i> Customer Dimension Details</h6>
+                <div class="table-responsive">
+                    <table class="table table-sm table-hover summary-table">
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Customer Name</th>
+                                <th>Chain</th>
+                                <th>Delivery</th>
+                                <th>Invoiced</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1001</td>
+                                <td>Norli AS</td>
+                                <td>Norli</td>
+                                <td>850</td>
+                                <td>720</td>
+                            </tr>
+                            <tr>
+                                <td>1002</td>
+                                <td>Ark bokhandel AS</td>
+                                <td>ARK</td>
+                                <td>680</td>
+                                <td>620</td>
+                            </tr>
+                            <tr>
+                                <td>1003</td>
+                                <td>Biblioteksentralen SA</td>
+                                <td>Library</td>
+                                <td>650</td>
+                                <td>610</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Summary -->
+    <div class="table-section">
+        <h6 class="mb-3"><i class="bi bi-pie-chart"></i> Category Summary (Bokgruppe 1)</h6>
+        <div class="table-responsive">
+            <table class="table table-sm table-hover summary-table">
+                <thead>
+                    <tr>
+                        <th>Book Category</th>
+                        <th>Delivery Count</th>
+                        <th>Percentage</th>
+                        <th>Trend</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>B (Literature)</td>
+                        <td>6,850</td>
+                        <td>45.0%</td>
+                        <td><i class="bi bi-arrow-up text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>2 (Technology)</td>
+                        <td>4,120</td>
+                        <td>27.0%</td>
+                        <td><i class="bi bi-arrow-up text-success"></i></td>
+                    </tr>
+                    <tr>
+                        <td>3 (Social Science)</td>
+                        <td>2,890</td>
+                        <td>19.0%</td>
+                        <td><i class="bi bi-arrow-down text-danger"></i></td>
+                    </tr>
+                    <tr>
+                        <td>4 (Education)</td>
+                        <td>1,380</td>
+                        <td>9.0%</td>
+                        <td><i class="bi bi-dash text-muted"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="footer">© 2025 Book Contract Management System</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// View switching functionality
+function switchView(viewType) {
+    const buttons = document.querySelectorAll('.view-toggle .btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('btn-primary');
+        btn.classList.add('btn-outline-primary');
+    });
+    
+    event.target.classList.remove('btn-outline-primary');
+    event.target.classList.add('btn-primary');
+    
+    // Load different data and charts based on view type
+    console.log('Switched to view:', viewType);
+}
+
+// Sales inventory trend chart
+const ctx = document.getElementById('salesInventoryChart').getContext('2d');
+const salesInventoryChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ['22-2025', '23-2025', '24-2025', '25-2025', '26-2025', '27-2025', '28-2025', '29-2025', '30-2025', '31-2025', '32-2025', '33-2025', '34-2025', '35-2025'],
+        datasets: [{
+            label: 'Delivery Count (Levert)',
+            data: [180, 220, 190, 240, 210, 280, 250, 300, 270, 320, 290, 350, 310, 380],
+            backgroundColor: 'rgba(37, 99, 235, 0.6)',
+            borderColor: 'rgba(37, 99, 235, 1)',
+            borderWidth: 1,
+            yAxisID: 'y'
+        }, {
+            label: 'Invoiced Count (Fakturert)',
+            data: [160, 200, 170, 220, 190, 250, 220, 270, 240, 290, 260, 320, 280, 350],
+            type: 'line',
+            borderColor: 'rgba(220, 53, 69, 1)',
+            backgroundColor: 'rgba(220, 53, 69, 0.1)',
+            borderWidth: 2,
+            fill: false,
+            yAxisID: 'y'
+        }, {
+            label: 'Inventory Count (Lagerbeholdning)',
+            data: [8200, 8100, 8000, 7900, 7800, 7700, 7600, 7500, 7400, 7300, 7200, 7100, 7000, 6900],
+            type: 'line',
+            borderColor: 'rgba(40, 167, 69, 1)',
+            backgroundColor: 'rgba(40, 167, 69, 0.1)',
+            borderWidth: 2,
+            fill: false,
+            yAxisID: 'y1'
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: {
+            mode: 'index',
+            intersect: false,
+        },
+        scales: {
+            x: {
+                display: true,
+                title: {
+                    display: true,
+                    text: 'Week-Year (Uke-År)'
+                }
+            },
+            y: {
+                type: 'linear',
+                display: true,
+                position: 'left',
+                title: {
+                    display: true,
+                    text: 'Count'
+                }
+            },
+            y1: {
+                type: 'linear',
+                display: true,
+                position: 'right',
+                title: {
+                    display: true,
+                    text: 'Inventory Count'
+                },
+                grid: {
+                    drawOnChartArea: false,
+                },
+            }
+        },
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            title: {
+                display: true,
+                text: 'Sales vs Inventory Trend Comparison'
+            }
+        }
+    }
+});
+</script>
+</body>
+</html> 

@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Contract - Book Contract Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
+            min-height: 100vh;
+        }
+        .navbar {
+            background: #2563eb;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .navbar-brand, .nav-link, .navbar .btn {
+            color: #fff !important;
+        }
+        .nav-link.active {
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }
+        .main-section {
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            padding: 0 16px;
+        }
+        .form-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .form-section {
+            margin-bottom: 30px;
+        }
+        .form-section-title {
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .required::after {
+            content: "*";
+            color: #dc3545;
+            margin-left: 4px;
+        }
+        .form-control {
+            height: 40px;
+        }
+        .form-textarea {
+            min-height: 100px;
+        }
+        .footer {
+            color: #888;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-top: 60px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark px-4">
+        <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+            <i class="bi bi-journal-bookmark-fill me-2" style="font-size:2rem;"></i>
+            Book Contract Management System
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="book-list.html">My Books</a></li>
+                <li class="nav-item"><a class="nav-link active" href="contract-list.html">Contracts</a></li>
+                <li class="nav-item"><a class="nav-link" href="sales-view.html">Sales Data</a></li>
+                <li class="nav-item"><a class="nav-link" href="profit-view.html">Profit Analysis</a></li>
+                <li class="nav-item"><a class="nav-link" href="author-list.html">Author Management</a></li>
+                <li class="nav-item"><a class="nav-link" href="user-list.html">User Management</a></li>
+                <li class="nav-item"><a class="nav-link" href="personal-info.html">Profile</a></li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <i class="bi bi-person" style="font-size:1.3rem;"></i>
+                <i class="bi bi-gear ms-3" style="font-size:1.3rem;"></i>
+                <button class="btn btn-outline-light ms-3">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="main-section">
+        <div class="form-container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="mb-0"><i class="bi bi-file-earmark-plus"></i> New Contract</h4>
+                <a href="contract-list.html" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to Contracts
+                </a>
+            </div>
+            
+            <!-- Basic Information -->
+            <div class="form-section">
+                <h5 class="form-section-title">Basic Information</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label required">Contract ID</label>
+                        <input type="text" class="form-control" placeholder="Enter contract ID">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Book</label>
+                        <select class="form-select">
+                            <option selected>Select Book</option>
+                            <option>Introduction to AI</option>
+                            <option>Python Programming Practice</option>
+                            <option>Blockchain Technology Principles</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Agent Name</label>
+                        <input type="text" class="form-control" placeholder="Enter agent name">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Contract Type</label>
+                        <select class="form-select">
+                            <option selected>Select Contract Type</option>
+                            <option>Standard Publishing Contract</option>
+                            <option>E-book Publishing Contract</option>
+                            <option>Translation Publishing Contract</option>
+                            <option>Adaptation Rights Contract</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contract Period -->
+            <div class="form-section">
+                <h5 class="form-section-title">Contract Period</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label required">Start Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">End Date</label>
+                        <input type="date" class="form-control">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Royalty Structure -->
+            <div class="form-section">
+                <h5 class="form-section-title">Royalty Structure</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label required">Advance Payment</label>
+                        <input type="number" class="form-control" placeholder="Enter advance payment amount">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Base Royalty Rate</label>
+                        <input type="number" class="form-control" placeholder="Enter base royalty rate (%)">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label">Royalty Tiers</label>
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Sales Quantity</th>
+                                        <th>Royalty Rate (%)</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="number" class="form-control" placeholder="Sales quantity"></td>
+                                        <td><input type="number" class="form-control" placeholder="Royalty rate"></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-danger">Delete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <button class="btn btn-outline-primary">Add Tier</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Royalty Report -->
+            <div class="form-section">
+                <h5 class="form-section-title">Royalty Report</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label required">Report Period</label>
+                        <select class="form-select">
+                            <option selected>Select Report Period</option>
+                            <option>Quarterly</option>
+                            <option>Semi-annually</option>
+                            <option>Annually</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Recipient</label>
+                        <input type="text" class="form-control" placeholder="Enter recipient name">
+                    </div>
+                    <div class="col-md-12">
+                        <label class="form-label required">Recipient Address</label>
+                        <input type="text" class="form-control" placeholder="Enter recipient address">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complimentary Copies -->
+            <div class="form-section">
+                <h5 class="form-section-title">Complimentary Copies</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label class="form-label required">Number of Copies</label>
+                        <input type="number" class="form-control" placeholder="Enter number of copies">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label required">Shipping Address</label>
+                        <input type="text" class="form-control" placeholder="Enter shipping address">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Special Terms -->
+            <div class="form-section">
+                <h5 class="form-section-title">Special Terms</h5>
+                <div class="mb-3">
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="electronicRights">
+                        <label class="form-check-label" for="electronicRights">
+                            Electronic Rights
+                        </label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="translationRights">
+                        <label class="form-check-label" for="translationRights">
+                            Translation Rights
+                        </label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="adaptationRights">
+                        <label class="form-check-label" for="adaptationRights">
+                            Adaptation Rights
+                        </label>
+                    </div>
+                    <div class="form-check mb-2">
+                        <input class="form-check-input" type="checkbox" id="audioRights">
+                        <label class="form-check-label" for="audioRights">
+                            Audiobook Rights
+                        </label>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label">Other Special Terms</label>
+                    <textarea class="form-control form-textarea" placeholder="Enter other special terms"></textarea>
+                </div>
+            </div>
+
+            <!-- Contract Attachments -->
+            <div class="form-section">
+                <h5 class="form-section-title">Contract Attachments</h5>
+                <div class="mb-3">
+                    <div class="border rounded p-3 text-center">
+                        <i class="bi bi-cloud-upload fs-1"></i>
+                        <p class="mt-2">Click or drag files here to upload</p>
+                        <input type="file" class="d-none" id="contractUpload">
+                        <button class="btn btn-outline-primary" onclick="document.getElementById('contractUpload').click()">
+                            Select Files
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-end gap-2">
+                <a href="contract-list.html" class="btn btn-secondary">Cancel</a>
+                <button class="btn btn-primary">Save Contract</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">© 2025 Book Contract Management System</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

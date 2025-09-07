@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contract Management - Book Contract Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
+            min-height: 100vh;
+        }
+        .navbar {
+            background: #2563eb;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .navbar-brand, .nav-link, .navbar .btn {
+            color: #fff !important;
+        }
+        .nav-link.active {
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }
+        .main-section {
+            max-width: 1400px;
+            margin: 40px auto 0 auto;
+            padding: 0 16px;
+        }
+        .table-actions button { 
+            margin-right: 6px; 
+        }
+        .table-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .table thead th {
+            background: #f3f6fd;
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .table tbody td {
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+        .status-badge {
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+        }
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status-expired {
+            background: #f8d7da;
+            color: #721c24;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .royalty-structure {
+            background: #f8f9fa;
+            border-radius: 4px;
+            padding: 8px;
+            font-size: 0.8rem;
+            color: #666;
+        }
+        .desc-box {
+            background: #f3f6fd;
+            border-radius: 10px;
+            padding: 16px 20px;
+            color: #555;
+            margin-bottom: 24px;
+            border-left: 4px solid #2563eb;
+        }
+        .footer {
+            color: #888;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-top: 60px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark px-4">
+        <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+            <i class="bi bi-journal-bookmark-fill me-2" style="font-size:2rem;"></i>
+            Book Contract Management System
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link" href="book-list.html">My Books</a></li>
+                <li class="nav-item"><a class="nav-link active" href="contract-list.html">Contracts</a></li>
+                <li class="nav-item"><a class="nav-link" href="sales-view.html">Sales Data</a></li>
+                <li class="nav-item"><a class="nav-link" href="profit-view.html">Profit Analysis</a></li>
+                <li class="nav-item"><a class="nav-link" href="author-list.html">Author Management</a></li>
+                <li class="nav-item"><a class="nav-link" href="user-list.html">User Management</a></li>
+                <li class="nav-item"><a class="nav-link" href="personal-info.html">Profile</a></li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <i class="bi bi-person" style="font-size:1.3rem;"></i>
+                <i class="bi bi-gear ms-3" style="font-size:1.3rem;"></i>
+                <button class="btn btn-outline-light ms-3">Logout</button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="main-section">
+        <div class="desc-box">
+            <b>Contracts Module Description:</b> Manage contracts for books held by authors or agents, including agent name, author, advance payment, royalty rates, royalty report recipient, contract start/expiry dates, and complimentary copies address. Supports tiered royalty rate structures based on book version (hardcover/paperback) and sales volume, with each contract linking to corresponding book information, sales data, and profit analysis.
+        </div>
+
+        <div class="table-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0"><i class="bi bi-file-text"></i> Contract Management</h5>
+                <a href="contract.html" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg"></i> New Contract</a>
+            </div>
+            
+            <form class="row g-3 mb-3">
+                <div class="col-md-2">
+                    <input type="text" class="form-control form-control-sm" placeholder="Contract ID">
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm">
+                        <option selected>All Status</option>
+                        <option>Active</option>
+                        <option>Expired</option>
+                        <option>Pending</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm">
+                        <option selected>All Agents</option>
+                        <option>Pantagruel Forlag AS</option>
+                        <option>Nor Agency AS</option>
+                        <option>Akademika Skaffebok</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" class="form-control form-control-sm" placeholder="Author Name">
+                </div>
+                <div class="col-md-2">
+                    <input type="date" class="form-control form-control-sm" placeholder="Start Date">
+                </div>
+                <div class="col-md-2">
+                    <button type="submit" class="btn btn-outline-primary btn-sm me-2">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-clockwise"></i> Reset
+                    </button>
+                </div>
+            </form>
+            
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Contract ID</th>
+                            <th>Agent Name</th>
+                            <th>Author</th>
+                            <th>Book Title</th>
+                            <th>Advance Payment</th>
+                            <th>Royalty Structure</th>
+                            <th>Royalty Report Recipient</th>
+                            <th>Start Date</th>
+                            <th>Expiry Date</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>CT-2024-001</strong></td>
+                            <td>Pantagruel Forlag AS</td>
+                            <td>Wang Xiaoming</td>
+                            <td>Introduction to AI</td>
+                            <td>NOK 50,000</td>
+                            <td>
+                                <div class="royalty-structure">
+                                    <strong>Hardcover:</strong> 7.5% (≤5,000), 10% (5,001-9,000), 12.5% (>9,000)<br>
+                                    <strong>Paperback:</strong> 6% (≤8,000), 7% (>8,000)<br>
+                                    <strong>E-book:</strong> 25% (≤3,000), 30% (>3,000)
+                                </div>
+                            </td>
+                            <td>Wang Xiaoming</td>
+                            <td>2024-01-15</td>
+                            <td>2027-01-15</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td class="table-actions">
+                                <a href="contract-detail.html" class="btn btn-sm btn-outline-primary" title="View Details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-secondary" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" title="Sales Data">
+                                    <i class="bi bi-graph-up"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning" title="Profit Analysis">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>CT-2023-002</strong></td>
+                            <td>Nor Agency AS</td>
+                            <td>Li Hua</td>
+                            <td>Python Programming Practice</td>
+                            <td>NOK 35,000</td>
+                            <td>
+                                <div class="royalty-structure">
+                                    <strong>Hardcover:</strong> 8% (≤3,000), 10% (3,001-6,000), 12% (>6,000)<br>
+                                    <strong>Paperback:</strong> 6.5% (≤5,000), 7.5% (>5,000)<br>
+                                    <strong>E-book:</strong> 20% (≤2,000), 25% (>2,000)
+                                </div>
+                            </td>
+                            <td>Li Hua</td>
+                            <td>2023-06-01</td>
+                            <td>2026-06-01</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td class="table-actions">
+                                <a href="contract-detail.html" class="btn btn-sm btn-outline-primary" title="View Details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-secondary" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" title="Sales Data">
+                                    <i class="bi bi-graph-up"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning" title="Profit Analysis">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>CT-2022-003</strong></td>
+                            <td>Pantagruel Forlag AS</td>
+                            <td>Zhang Wei</td>
+                            <td>Blockchain Technology Principles</td>
+                            <td>NOK 40,000</td>
+                            <td>
+                                <div class="royalty-structure">
+                                    <strong>Hardcover:</strong> 7% (≤4,000), 9% (4,001-8,000), 11% (>8,000)<br>
+                                    <strong>Paperback:</strong> 5.5% (≤6,000), 6.5% (>6,000)<br>
+                                    <strong>E-book:</strong> 22% (≤2,500), 28% (>2,500)
+                                </div>
+                            </td>
+                            <td>Zhang Wei</td>
+                            <td>2022-09-01</td>
+                            <td>2025-09-01</td>
+                            <td><span class="status-badge status-active">Active</span></td>
+                            <td class="table-actions">
+                                <a href="contract-detail.html" class="btn btn-sm btn-outline-primary" title="View Details">
+                                    <i class="bi bi-eye"></i>
+                                </a>
+                                <button class="btn btn-sm btn-outline-secondary" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" title="Sales Data">
+                                    <i class="bi bi-graph-up"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning" title="Profit Analysis">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div class="text-muted small">
+                    Showing 1-3 of 3 records
+                </div>
+                <nav>
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">© 2025 Book Contract Management System</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

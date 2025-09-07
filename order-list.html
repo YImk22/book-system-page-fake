@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Ordering</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
+            min-height: 100vh;
+        }
+        .navbar {
+            background: #2563eb;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .navbar-brand, .nav-link, .navbar .btn {
+            color: #fff !important;
+        }
+        .nav-link.active {
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }
+        .main-section {
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            padding: 0 16px;
+        }
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #2563eb;
+            margin-bottom: 18px;
+        }
+        .search-section {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+        .book-card {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            padding: 20px;
+            height: 100%;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .book-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 16px rgba(37,99,235,0.12);
+        }
+        .book-cover {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 16px;
+        }
+        .book-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #222;
+            margin-bottom: 8px;
+        }
+        .book-author {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+        .book-price {
+            color: #e53e3e;
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .cart-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #e53e3e;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .order-section {
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            padding: 28px 24px 20px 24px;
+            margin-bottom: 32px;
+        }
+        .table thead th {
+            background: #f3f6fd;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .status-shipped {
+            background: #cce5ff;
+            color: #004085;
+        }
+        .status-delivered {
+            background: #d4edda;
+            color: #155724;
+        }
+        .desc-box {
+            background: #f3f6fd;
+            border-radius: 10px;
+            padding: 16px 20px;
+            color: #555;
+            margin-bottom: 24px;
+        }
+        .footer {
+            color: #888;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-top: 60px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+    <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+        <i class="bi bi-journal-bookmark-fill me-2" style="font-size:2rem;"></i>
+        Book Contract Management System
+    </a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="book-list.html">My Books</a></li>
+            <li class="nav-item"><a class="nav-link" href="contract-list.html">Contracts</a></li>
+            <li class="nav-item"><a class="nav-link" href="sales-view.html">Sales Data</a></li>
+            <li class="nav-item"><a class="nav-link" href="profit-view.html">Profit Analysis</a></li>
+            <li class="nav-item"><a class="nav-link" href="author-list.html">Author Management</a></li>
+            <li class="nav-item"><a class="nav-link" href="user-list.html">User Management</a></li>
+            <li class="nav-item"><a class="nav-link active" href="order-list.html">Book Ordering</a></li>
+            <li class="nav-item"><a class="nav-link" href="personal-info.html">Profile</a></li>
+        </ul>
+        <div class="d-flex align-items-center">
+            <div class="position-relative me-3">
+                <i class="bi bi-cart3" style="font-size:1.3rem; color: white;"></i>
+                <span class="cart-badge">3</span>
+            </div>
+            <i class="bi bi-person" style="font-size:1.3rem;"></i>
+            <i class="bi bi-gear ms-3" style="font-size:1.3rem;"></i>
+            <button class="btn btn-outline-light ms-3">Logout</button>
+        </div>
+    </div>
+</nav>
+<div class="main-section">
+    <div class="desc-box mb-4">
+        <b>Book Ordering Instructions:</b> Browse and order the books you are interested in, support filtering and searching by category, and add to cart for bulk ordering.
+    </div>
+    
+    <div class="search-section">
+        <div class="row g-3">
+            <div class="col-md-4">
+                <input type="text" class="form-control" placeholder="Order ID/Book/Author">
+            </div>
+            <div class="col-md-3">
+                <select class="form-select">
+                    <option selected>All Status</option>
+                    <option>Pending</option>
+                    <option>Processing</option>
+                    <option>Completed</option>
+                    <option>Cancelled</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select class="form-select">
+                    <option value="">Price Sort</option>
+                    <option>From Low to High</option>
+                    <option>From High to Low</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <button type="submit" class="btn btn-outline-primary"><i class="bi bi-search"></i> Search</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="row g-4 mb-5">
+        <div class="col-md-4">
+            <div class="book-card">
+                <img src="https://via.placeholder.com/300x400" class="book-cover" alt="Introduction to AI">
+                <div class="book-title">Introduction to AI</div>
+                <div class="book-author">Author: Wang Xiaoming</div>
+                <div class="book-price">¥39.80</div>
+                <button class="btn btn-primary w-100">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="book-card">
+                <img src="https://via.placeholder.com/300x400" class="book-cover" alt="Python Programming Practice">
+                <div class="book-title">Python Programming Practice</div>
+                <div class="book-author">Author: Li Hua</div>
+                <div class="book-price">¥45.00</div>
+                <button class="btn btn-primary w-100">Add to Cart</button>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="book-card">
+                <img src="https://via.placeholder.com/300x400" class="book-cover" alt="Blockchain Technology Principles">
+                <div class="book-title">Blockchain Technology Principles</div>
+                <div class="book-author">Author: Zhang Wei</div>
+                <div class="book-price">¥52.00</div>
+                <button class="btn btn-primary w-100">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="order-section">
+        <div class="section-title">My Orders</div>
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Book</th>
+                        <th>Author</th>
+                        <th>Quantity</th>
+                        <th>Total Amount</th>
+                        <th>Order Date</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>DD20250301</td>
+                        <td>Introduction to AI</td>
+                        <td>Wang Xiaoming</td>
+                        <td>2</td>
+                        <td>¥79.60</td>
+                        <td>2025-03-01</td>
+                        <td><span class="status-badge status-delivered">Completed</span></td>
+                        <td><button class="btn btn-sm btn-outline-primary" onclick="location.href='order-detail.html?id=2001'">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>DD20250228</td>
+                        <td>Python Programming Practice</td>
+                        <td>Li Hua</td>
+                        <td>1</td>
+                        <td>¥45.00</td>
+                        <td>2025-02-28</td>
+                        <td><span class="status-badge status-shipped">Processing</span></td>
+                        <td><button class="btn btn-sm btn-outline-primary" onclick="location.href='order-detail.html?id=2002'">View</button></td>
+                    </tr>
+                    <tr>
+                        <td>DD20250227</td>
+                        <td>Blockchain Technology Principles</td>
+                        <td>Zhang Wei</td>
+                        <td>3</td>
+                        <td>¥156.00</td>
+                        <td>2025-02-27</td>
+                        <td><span class="status-badge status-pending">Pending</span></td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary me-1" onclick="location.href='order-detail.html?id=2003'">View</button>
+                            <button class="btn btn-sm btn-success" data-bs-toggle="modal" data-bs-target="#payModal">Pay</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center mt-3">
+            <div class="text-muted">Total 3 records</div>
+            <nav>
+                <ul class="pagination mb-0">
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+<div class="footer">© 2025 Year - Book Contract Management System</div>
+<!-- Payment Modal -->
+<div class="modal fade" id="payModal" tabindex="-1" aria-labelledby="payModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="payModalLabel">Order Payment</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Select Payment Method</label>
+          <select class="form-select">
+            <option value="online">Online Payment</option>
+            <option value="cod">Cash on Delivery</option>
+          </select>
+        </div>
+        <div class="mb-3" id="payOnlineBox">
+          <div class="text-center mb-2">Please scan the QR code for payment</div>
+          <div class="d-flex justify-content-center">
+            <img src="https://via.placeholder.com/160x160?text=QR+Code" alt="Payment QR Code" style="border-radius:8px;">
+          </div>
+        </div>
+        <div class="mb-3 d-none" id="payCodBox">
+          <div class="alert alert-info">You have selected Cash on Delivery. Please wait for the deliveryman to deliver the goods before paying.</div>
+        </div>
+        <div class="alert alert-success d-none" id="paySuccessBox">Payment successful! Thank you for your purchase.</div>
+        <div class="alert alert-danger d-none" id="payFailBox">Payment failed, please try again or choose a different payment method.</div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" id="payBtn">Confirm Payment</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+// Payment method switching demo
+const payModal = document.getElementById('payModal');
+if(payModal){
+  payModal.addEventListener('show.bs.modal', function(){
+    document.getElementById('payOnlineBox').classList.remove('d-none');
+    document.getElementById('payCodBox').classList.add('d-none');
+    document.getElementById('paySuccessBox').classList.add('d-none');
+    document.getElementById('payFailBox').classList.add('d-none');
+    document.getElementById('payBtn').disabled = false;
+    const select = payModal.querySelector('select');
+    select.value = 'online';
+    select.onchange = function(){
+      if(this.value==='online'){
+        document.getElementById('payOnlineBox').classList.remove('d-none');
+        document.getElementById('payCodBox').classList.add('d-none');
+      }else{
+        document.getElementById('payOnlineBox').classList.add('d-none');
+        document.getElementById('payCodBox').classList.remove('d-none');
+      }
+    };
+    payModal.querySelector('#payBtn').onclick = function(){
+      // Simulate payment success
+      document.getElementById('paySuccessBox').classList.remove('d-none');
+      document.getElementById('payFailBox').classList.add('d-none');
+      this.disabled = true;
+    };
+  });
+}
+</script>
+</body>
+</html> 

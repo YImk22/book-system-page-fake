@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add New Book - Book Contract Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
+            min-height: 100vh;
+        }
+        .navbar {
+            background: #2563eb;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .navbar-brand, .nav-link, .navbar .btn {
+            color: #fff !important;
+        }
+        .nav-link.active {
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }
+        .main-section {
+            max-width: 1200px;
+            margin: 40px auto 0 auto;
+            padding: 0 16px;
+        }
+        .form-container {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .form-section {
+            margin-bottom: 32px;
+        }
+        .form-section-title {
+            border-bottom: 2px solid #2563eb;
+            padding-bottom: 12px;
+            margin-bottom: 24px;
+            color: #2563eb;
+            font-weight: 600;
+        }
+        .required::after {
+            content: "*";
+            color: #dc3545;
+            margin-left: 4px;
+        }
+        .form-control {
+            height: 44px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .form-control:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 0.2rem rgba(37,99,235,0.25);
+        }
+        .form-textarea {
+            min-height: 120px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+        }
+        .form-textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 0.2rem rgba(37,99,235,0.25);
+        }
+        .upload-area {
+            border: 2px dashed #cbd5e0;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .upload-area:hover {
+            border-color: #2563eb;
+            background-color: #f8fbff;
+        }
+        .back-btn {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark px-4">
+    <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+        <i class="bi bi-journal-bookmark-fill me-2" style="font-size:2rem;"></i>
+        Book Contract Management System
+    </a>
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link active" href="book-list.html">My Books</a></li>
+            <li class="nav-item"><a class="nav-link" href="contract-list.html">Contracts</a></li>
+            <li class="nav-item"><a class="nav-link" href="sales-view.html">Sales Data</a></li>
+            <li class="nav-item"><a class="nav-link" href="profit-view.html">Profit Analysis</a></li>
+            <li class="nav-item"><a class="nav-link" href="author-list.html">Author Management</a></li>
+            <li class="nav-item"><a class="nav-link" href="user-list.html">User Management</a></li>
+            <li class="nav-item"><a class="nav-link" href="personal-info.html">Profile</a></li>
+        </ul>
+        <div class="d-flex align-items-center">
+            <i class="bi bi-person" style="font-size:1.3rem;"></i>
+            <i class="bi bi-gear ms-3" style="font-size:1.3rem;"></i>
+            <button class="btn btn-outline-light ms-3">Logout</button>
+        </div>
+    </div>
+</nav>
+
+<div class="main-section">
+    <div class="back-btn">
+        <a href="book-list.html" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to My Books
+        </a>
+    </div>
+
+    <div class="form-container">
+        <h4 class="mb-4"><i class="bi bi-plus-circle"></i> Add New Book</h4>
+        
+        <!-- Basic Information -->
+        <div class="form-section">
+            <h5 class="form-section-title">Basic Information</h5>
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label class="form-label required">Book Title</label>
+                    <input type="text" class="form-control" placeholder="Enter book title">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label required">ISBN</label>
+                    <input type="text" class="form-control" placeholder="Enter ISBN">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Subtitle</label>
+                    <input type="text" class="form-control" placeholder="Enter subtitle (optional)">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Original Title</label>
+                    <input type="text" class="form-control" placeholder="Enter original title (optional)">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label required">Publication Date</label>
+                    <input type="date" class="form-control">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label required">Price</label>
+                    <input type="number" class="form-control" placeholder="Enter price">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Editor</label>
+                    <input type="text" class="form-control" placeholder="Enter editor name">
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Copyright Holder</label>
+                    <input type="text" class="form-control" placeholder="Enter copyright holder">
+                </div>
+            </div>
+        </div>
+
+        <!-- Book Description -->
+        <div class="form-section">
+            <h5 class="form-section-title">Book Description</h5>
+            <div class="mb-3">
+                <textarea class="form-control form-textarea" placeholder="Enter book description"></textarea>
+            </div>
+        </div>
+
+        <!-- Author Information -->
+        <div class="form-section">
+            <h5 class="form-section-title">Author Information</h5>
+            <div class="mb-3">
+                <div class="d-flex align-items-center mb-2">
+                    <select class="form-select me-2">
+                        <option selected>Select Author</option>
+                        <option>Wang Xiaoming</option>
+                        <option>Li Hua</option>
+                        <option>Zhang Wei</option>
+                    </select>
+                    <button class="btn btn-outline-primary">Add Author</button>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Author Name</th>
+                                <th>Contact Information</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Wang Xiaoming</td>
+                                <td>wang.xiaoming@email.com</td>
+                                <td>
+                                    <button class="btn btn-sm btn-danger">Remove</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Book Cover -->
+        <div class="form-section">
+            <h5 class="form-section-title">Book Cover</h5>
+            <div class="mb-3">
+                <div class="upload-area" onclick="document.getElementById('coverUpload').click()">
+                    <i class="bi bi-cloud-upload fs-1 text-muted"></i>
+                    <p class="mt-2 text-muted">Click or drag files here to upload</p>
+                    <input type="file" class="d-none" id="coverUpload" accept="image/*">
+                    <button class="btn btn-outline-primary" type="button">
+                        Select File
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="d-flex justify-content-end gap-2">
+            <a href="book-list.html" class="btn btn-secondary">Cancel</a>
+            <button class="btn btn-primary">Save Book</button>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 

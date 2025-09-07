@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Books - Book Contract Management System</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #e3f0ff 0%, #f8fbff 100%);
+            min-height: 100vh;
+        }
+        .navbar {
+            background: #2563eb;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+        }
+        .navbar-brand, .nav-link, .navbar .btn {
+            color: #fff !important;
+        }
+        .nav-link.active {
+            font-weight: bold;
+            border-bottom: 2px solid #fff;
+        }
+        .main-section {
+            max-width: 1400px;
+            margin: 40px auto 0 auto;
+            padding: 0 16px;
+        }
+        .table-actions button { 
+            margin-right: 6px; 
+        }
+        .cover-img { 
+            width: 40px; 
+            height: 56px; 
+            object-fit: cover; 
+            border-radius: 2px; 
+        }
+        .table-section {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(37,99,235,0.08);
+            padding: 20px;
+            margin-bottom: 24px;
+        }
+        .table thead th {
+            background: #f3f6fd;
+            color: #2563eb;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .table tbody td {
+            font-size: 0.9rem;
+            vertical-align: middle;
+        }
+        .isbn-badge {
+            background: #e9ecef;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            color: #666;
+            margin: 1px;
+            display: inline-block;
+        }
+        .copyright-badge {
+            background: #d1ecf1;
+            border-radius: 4px;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            color: #0c5460;
+        }
+        .desc-box {
+            background: #f3f6fd;
+            border-radius: 10px;
+            padding: 16px 20px;
+            color: #555;
+            margin-bottom: 24px;
+            border-left: 4px solid #2563eb;
+        }
+        .footer {
+            color: #888;
+            font-size: 0.95rem;
+            text-align: center;
+            margin-top: 60px;
+            padding-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark px-4">
+        <a class="navbar-brand d-flex align-items-center" href="dashboard.html">
+            <i class="bi bi-journal-bookmark-fill me-2" style="font-size:2rem;"></i>
+            Book Contract Management System
+        </a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link" href="dashboard.html">Dashboard</a></li>
+                <li class="nav-item"><a class="nav-link active" href="book-list.html">My Books</a></li>
+                <li class="nav-item"><a class="nav-link" href="contract-list.html">Contracts</a></li>
+                <li class="nav-item"><a class="nav-link" href="sales-view.html">Sales Data</a></li>
+                <li class="nav-item"><a class="nav-link" href="profit-view.html">Profit Analysis</a></li>
+                <li class="nav-item"><a class="nav-link" href="author-list.html">Author Management</a></li>
+                <li class="nav-item"><a class="nav-link" href="user-list.html">User Management</a></li>
+                <li class="nav-item"><a class="nav-link" href="personal-info.html">Profile</a></li>
+            </ul>
+            <div class="d-flex align-items-center">
+                <i class="bi bi-person" style="font-size:1.3rem;"></i>
+                <i class="bi bi-gear ms-3" style="font-size:1.3rem;"></i>
+                <button class="btn btn-outline-light ms-3">Logout</button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="main-section">
+        <div class="desc-box">
+            <b>My Books Module Description:</b> Display book information held by authors or agents, including title, subtitle, original title, author, ISBN, publisher, editor, publication year, copyright holder, and other basic information. Supports multi-ISBN management (hardcover/paperback/e-book), with each book linking to corresponding contract information, sales data, and profit analysis.
+        </div>
+
+        <div class="table-section">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0"><i class="bi bi-book"></i> My Books</h5>
+                <a href="form.html" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg"></i> Add New Book</a>
+            </div>
+            
+            <form class="row g-3 mb-3">
+                <div class="col-md-3">
+                    <input type="text" class="form-control form-control-sm" placeholder="Title/ISBN/Author">
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm">
+                        <option selected>All Categories</option>
+                        <option>B (Literature)</option>
+                        <option>2 (Technology)</option>
+                        <option>3 (Social Science)</option>
+                        <option>4 (Education)</option>
+                        <option>5 (Other)</option>
+                        <option>8 (Special)</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <select class="form-select form-select-sm">
+                        <option selected>Copyright Holder</option>
+                        <option>Author</option>
+                        <option>Agent</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <input type="date" class="form-control form-control-sm" placeholder="Publication Date">
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-outline-primary btn-sm me-2">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                    <button type="reset" class="btn btn-outline-secondary btn-sm">
+                        <i class="bi bi-arrow-clockwise"></i> Reset
+                    </button>
+                </div>
+            </form>
+            
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead>
+                        <tr>
+                            <th>Cover</th>
+                            <th>Title</th>
+                            <th>Subtitle</th>
+                            <th>Original Title</th>
+                            <th>Author</th>
+                            <th>ISBN</th>
+                            <th>Publisher</th>
+                            <th>Editor</th>
+                            <th>Publication Date</th>
+                            <th>Copyright Holder</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><img src="https://img1.doubanio.com/view/subject/l/public/s33975318.jpg" class="cover-img" alt="Cover"></td>
+                            <td>
+                                <strong>Introduction to AI</strong>
+                                <br><small class="text-muted">Introduction to Artificial Intelligence</small>
+                            </td>
+                            <td>Theory and Practice</td>
+                            <td><em>None (Original)</em></td>
+                            <td>Wang Xiaoming</td>
+                            <td>
+                                <div class="isbn-badge">Hardcover: 978-82-05-12345-6</div>
+                                <div class="isbn-badge">Paperback: 978-82-05-12346-3</div>
+                                <div class="isbn-badge">E-book: 978-82-05-12347-0</div>
+                            </td>
+                            <td>Pantagruel Forlag AS</td>
+                            <td>Li Editor</td>
+                            <td>2023-03-01</td>
+                            <td><span class="copyright-badge">Author</span></td>
+                            <td class="table-actions">
+                                <button class="btn btn-sm btn-outline-primary" title="View Details">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-info" title="Contract Info">
+                                    <i class="bi bi-file-text"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" title="Sales Data">
+                                    <i class="bi bi-graph-up"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning" title="Profit Analysis">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://img1.doubanio.com/view/subject/l/public/s29796414.jpg" class="cover-img" alt="Cover"></td>
+                            <td>
+                                <strong>Python Programming Practice</strong>
+                                <br><small class="text-muted">Python Programming Practice</small>
+                            </td>
+                            <td>From Beginner to Expert</td>
+                            <td><em>None (Original)</em></td>
+                            <td>Li Hua</td>
+                            <td>
+                                <div class="isbn-badge">Hardcover: 978-82-05-12348-7</div>
+                                <div class="isbn-badge">Paperback: 978-82-05-12349-4</div>
+                            </td>
+                            <td>Nor Agency AS</td>
+                            <td>Zhang Editor</td>
+                            <td>2022-10-15</td>
+                            <td><span class="copyright-badge">Agent</span></td>
+                            <td class="table-actions">
+                                <button class="btn btn-sm btn-outline-primary" title="View Details">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-info" title="Contract Info">
+                                    <i class="bi bi-file-text"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" title="Sales Data">
+                                    <i class="bi bi-graph-up"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning" title="Profit Analysis">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><img src="https://img1.doubanio.com/view/subject/l/public/s29796415.jpg" class="cover-img" alt="Cover"></td>
+                            <td>
+                                <strong>Blockchain Technology Principles</strong>
+                                <br><small class="text-muted">Blockchain Technology Principles</small>
+                            </td>
+                            <td>Technology and Applications</td>
+                            <td>Blockchain Fundamentals</td>
+                            <td>Zhang Wei</td>
+                            <td>
+                                <div class="isbn-badge">Hardcover: 978-82-05-12350-0</div>
+                                <div class="isbn-badge">Paperback: 978-82-05-12351-7</div>
+                                <div class="isbn-badge">E-book: 978-82-05-12352-4</div>
+                            </td>
+                            <td>Pantagruel Forlag AS</td>
+                            <td>Wang Editor</td>
+                            <td>2021-08-20</td>
+                            <td><span class="copyright-badge">Author</span></td>
+                            <td class="table-actions">
+                                <button class="btn btn-sm btn-outline-primary" title="View Details">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-secondary" title="Edit">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-info" title="Contract Info">
+                                    <i class="bi bi-file-text"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-success" title="Sales Data">
+                                    <i class="bi bi-graph-up"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-warning" title="Profit Analysis">
+                                    <i class="bi bi-currency-dollar"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <div class="text-muted small">
+                    Showing 1-3 of 3 records
+                </div>
+                <nav>
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#" tabindex="-1">Previous</a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Next</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">© 2025 Book Contract Management System</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html> 
